@@ -1,0 +1,19 @@
+{
+    "name": "zzfufu/elastic-helper",
+    "description": "elastic helper",
+    "require": {
+        "elasticsearch/elasticsearch": "^7.1"
+    },
+    "authors": [
+        {
+            "name": "zzfufu",
+            "email": "ch5688@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ZzElastic\\": "src/"
+        }
+    }
+}
