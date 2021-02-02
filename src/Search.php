@@ -1,6 +1,6 @@
 <?php
 
-namespace ZzElastic;
+namespace zzfufu\ZzElastic;
 
 class Search
 {

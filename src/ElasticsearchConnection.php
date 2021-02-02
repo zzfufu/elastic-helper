@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ZzElastic;
+namespace zzfufu\ZzElastic;
 
 
 use Elasticsearch\ClientBuilder;
