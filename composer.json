@@ -2,7 +2,8 @@
     "name": "zzfufu/elastic-helper",
     "description": "elastic helper",
     "require": {
-        "elasticsearch/elasticsearch": "^7.1"
+        "elasticsearch/elasticsearch": "^7.1",
+        "overtrue/pinyin": "4.0"
     },
     "authors": [
         {

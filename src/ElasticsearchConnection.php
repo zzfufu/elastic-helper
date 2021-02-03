@@ -14,11 +14,11 @@ class ElasticsearchConnection
 
     protected $client = null;
 
-    public function __construct(string $indexName, string $indexType, array $config)
+    public function __construct(array $config)
     {
         $this->config = $config;
-        $this->indexName = $indexName;
-        $this->indexType = $indexType;
+//        $this->indexName = $indexName;
+//        $this->indexType = $indexType;
         if (is_array($this->config['hosts'])) {
             $this->client = ClientBuilder::create()->setHosts($this->config['hosts'])->build();
         } else {
@@ -50,11 +50,16 @@ class ElasticsearchConnection
 
     public function CUD(SetIndex $setIndex)
     {
-        return new CUD($this->client);
+        return new CUD($this->client, $setIndex);
     }
 
-    public function Mapping()
+    public function Setting(SetIndex $setIndex)
     {
-        return new Mapping($this->client);
+        return new Setting($this->client, $setIndex);
+    }
+
+    public function Mapping(SetIndex $setIndex)
+    {
+        return new Mapping($this->client, $setIndex);
     }
 }

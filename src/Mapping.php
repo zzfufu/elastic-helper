@@ -1,5 +1,5 @@
 <?php
-
+//https://www.elastic.co/guide/cn/elasticsearch/php/current/_index_management_operations.html
 
 namespace zzfufu\ZzElastic;
 

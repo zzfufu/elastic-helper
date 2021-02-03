@@ -24,6 +24,13 @@ class CUD
         return $this->setIndex->toArray();
     }
 
+    /**
+     * https://www.elastic.co/guide/cn/elasticsearch/php/current/_index_management_operations.html
+     * @param array $settings
+     * @return array
+     * @throws \Exception
+     * @Author: xiedf
+     */
     public function createIndex($settings = [])
     {
         try{
@@ -54,7 +61,6 @@ class CUD
             $params['body'] = $data['body'];
 
             $res = $this->client->index($params);
-            var_dump($res);
         }catch (\Exception $e){
             throw $e;
         }
@@ -115,6 +121,28 @@ class CUD
             throw $e;
         }
         if (!isset($res['_shards']['successful'])){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 删除一个索引
+     * @param $index
+     * @return bool
+     * @throws \Exception
+     * @Author: xiedf
+     */
+    public function deleteIndex($index)
+    {
+        try{
+            $params['index'] = $index;
+
+            $res = $this->client->indices()->delete($params);
+        }catch (\Exception $e){
+            throw $e;
+        }
+        if (!isset($res['acknowledged'])){
             return false;
         }
         return true;
