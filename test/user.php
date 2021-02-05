@@ -93,8 +93,8 @@ $indexType = 'user';
 $config = [
     'hosts' => [
         '127.0.0.1:9200',
-        '127.0.0.1:9201',
-        '127.0.0.1:9202',
+//        '127.0.0.1:9201',
+//        '127.0.0.1:9202',
     ]
 ];
 
@@ -104,6 +104,7 @@ $setIndex->setIndexType($indexType);
 
 $conn = new \zzfufu\ZzElastic\ElasticsearchConnection($config);
 $cud = $conn->CUD($setIndex);
+//$cud->deleteIndex($indexName);
 
 $pinyin = new Overtrue\Pinyin\Pinyin();
 $folderPath = "mingzi/";
@@ -112,7 +113,9 @@ $totalFiles = glob($folderPath . "*.txt");
 $sexs = ['男', '女'];
 foreach ($totalFiles as $filename) {
     $handle = fopen($filename, "r");
+    var_dump($handle);
     $datas = [];
+    $i = 1;
     while (!feof($handle)) {
         $name = trim(fgets($handle));
         if (empty($name)) continue;
@@ -127,11 +130,17 @@ foreach ($totalFiles as $filename) {
             'last_login_ip' => config::lastLoginIp(),
             'create_time' => config::createTime()
         ];
+        $i++;
+//        if ($i % 100 == 0) {
+//            echo count($datas),PHP_EOL;
+//            $cud->bulk(['body' => $datas]);
+//            $datas = [];
+//        }
 //        $res = $cud->add(['body' => $datas]);
 //        var_dump($res);
     }
 //var_dump($datas);break;
+    echo count($datas),PHP_EOL;
     if (count($datas) <= 0) continue;
     $res = $cud->bulk(['body' => $datas]);
-    var_dump($res);
 }

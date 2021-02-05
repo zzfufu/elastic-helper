@@ -17,7 +17,8 @@ $setIndex->setIndexType($indexType);
 
 $conn = new \zzfufu\ZzElastic\ElasticsearchConnection($config);
 $cud = $conn->CUD($setIndex);
-//$cud->deleteIndex($indexName);
+//$res = $cud->deleteIndex($indexName);
+//var_dump($res);exit;
 $set = $conn->Setting($setIndex);
 
 $params = [

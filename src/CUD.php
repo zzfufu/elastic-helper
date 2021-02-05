@@ -31,11 +31,12 @@ class CUD
      * @throws \Exception
      * @Author: xiedf
      */
-    public function createIndex($settings = [])
+    public function createIndex($settings = [], $mappings = [])
     {
         try{
-            $initParams['index'] = $this->indexName;
+            $initParams['index'] = $this->setIndex->getIndexName();
             !empty($settings) && $initParams['body']['settings'] = $settings;
+//            !empty($mappings) && $initParams['body']['mappings'] = $mappings;
 
             $res = $this->client->indices()->create($initParams);
 
@@ -87,8 +88,8 @@ class CUD
             foreach ($data['body'] as $body) {
                 $params['body'][] = [
                     'index' => [
-                        '_index' => $this->indexName,
-                        '_type' => $this->indexType,
+                        '_index' => $this->setIndex->getIndexName(),
+                        '_type' => $this->setIndex->getIndexType(),
                     ]
                 ];
 

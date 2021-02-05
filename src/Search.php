@@ -36,7 +36,7 @@ class Search
     /**
      * 单字段模糊查询
      * 满足单个字段查询（不带分页+排序）match 分词查询
-     * @param $data
+     * @param $data = ['user_name' => '']
      * @return array
      * @throws \Exception
      */
@@ -46,15 +46,19 @@ class Search
             $params = $this->initParams();
 
             if (!empty($data)){
-                $field = key($data);
-                $query = [
-                    'match' => [
-                        $field => [
-                            'query' => $data[$field],
-                            'minimum_should_match'  => '90%'  //相似度，匹配度
+                if (isset($data['query'])) {
+                    $query = $data['query'];
+                } else {
+                    $field = key($data);
+                    $query = [
+                        'match' => [
+                            $field => [
+                                'query' => $data[$field],
+                                'minimum_should_match' => '90%'  //相似度，匹配度
+                            ]
                         ]
-                    ]
-                ];
+                    ];
+                }
                 $params['body']['query'] = $query;
             }
             $res = $this->client->search($params);
@@ -363,7 +367,7 @@ class Search
     public function exist()
     {
         try{
-            $params['index'] = $this->index_name;
+            $params['index'] = $this->setIndex->getIndexName();
 
             $res = $this->client->indices()->exists($params);
 
